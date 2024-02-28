@@ -1,9 +1,10 @@
 import argparse
 import csv
+from datetime import datetime
 import json
+import sys
 
 from pymongo import MongoClient
-import sys
 
 
 SCHEMA: dict[str, tuple[str, ...]] = {
@@ -14,20 +15,44 @@ SCHEMA: dict[str, tuple[str, ...]] = {
         "Discharge Date", "Medication", "Test Results"),
     "Billing": ("Insurance Provider", "Billing Amount")
 }
+with open("validators.json", encoding="utf-8") as vals_file:
+    VALIDATORS = json.load(vals_file)
+
+
+def _coerce_types(data: dict, validator: dict) -> dict:
+    """Coerce JSON string types to db field types, as specified by the validator."""
+    props = validator["$jsonSchema"]["properties"]
+    for (k, v) in data.items():
+        if k in props:
+            t = props[k]["bsonType"]
+            if t == "int":
+                data[k] = int(v)
+            elif t == "date":
+                data[k] = datetime.strptime(v, '%Y-%m-%d')
+    return data
 
 
 def import_data(db_name: str, json_path: str) -> None:
     """Import data from JSON and store it in MongoDongo."""
     client = MongoClient()
     db = client[db_name]
+    # Create collections
+    db.create_collection("patients")
+    db.create_collection("cases")
+    # Create validators on collections, as specified in validators.json
+    db.command("collMod", "patients", validator=VALIDATORS["patients"])
+    db.command("collMod", "cases", validator=VALIDATORS["cases"])
+    # Transfer data from input JSON file to mongodb
     with open(json_path, encoding="utf-8") as data_file:
         data = json.load(data_file)
         print(f"Inserting {len(data)} elements...")
         for pdata in data:
-            cases = pdata.pop("Cases")
+            # Make sure fields have the correct type before inserting
+            pdata = _coerce_types(pdata, VALIDATORS["patients"])
+            cases = [_coerce_types(c, VALIDATORS["cases"]) for c in pdata.pop("Cases")]
             result = db.patients.insert_one(pdata)
             for c in cases:
-                c["patient_id"] = result.inserted_id
+                c["PatientId"] = result.inserted_id
             db.cases.insert_many(cases)
         print("Done")
 

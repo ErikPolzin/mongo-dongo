@@ -1,0 +1,65 @@
+{
+    "patients": {
+        "$jsonSchema": {
+            "bsonType": "object",
+            "title": "Patient Object Validation",
+            "required": [ "Name", "Age", "Gender", "Blood Type" ],
+            "properties": {
+                "Name": {
+                    "bsonType": "string"
+                },
+                "Age": {
+                    "bsonType": "int",
+                    "minimum": 0
+                },
+                "Gender": {
+                    "bsonType": "string",
+                    "enum": [ "Male", "Female" ]
+                },
+                "Blood Type": {
+                    "bsonType": "string",
+                    "enum": [ "A+", "B+", "AB+", "O+", "A-", "B-", "AB-", "O-" ]
+                }
+            }
+         }
+    },
+    "cases": {
+        "$jsonSchema": {
+            "bsonType": "object",
+            "title": "Patient Case Object Validation",
+            "required": [ "PatientId", "Date of Admission", "Hospital" ],
+            "properties": {
+                "PatientId": {
+                    "bsonType": "objectId"
+                },
+                "Medical Condition": {
+                    "bsonType": "string"
+                },
+                "Date of Admission": {
+                    "bsonType": "date"
+                },
+                "Doctor": {
+                    "bsonType": "string"
+                },
+                "Hospital": {
+                    "bsonType": "string"
+                },
+                "Room Number": {
+                    "bsonType": "int"
+                },
+                "Admission Type": {
+                    "bsonType": "string"
+                },
+                "Discharge Date": {
+                    "bsonType": "date"
+                },
+                "Medication": {
+                    "bsonType": "string"
+                },
+                "Test Results": {
+                    "bsonType": "string"
+                }
+            }
+         }
+    }
+}
