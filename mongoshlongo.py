@@ -16,16 +16,20 @@ SCHEMA: dict[str, tuple[str, ...]] = {
 }
 
 
-def import_data(db_name: str, json_path: str, collection_name: str = "patient") -> None:
+def import_data(db_name: str, json_path: str) -> None:
     """Import data from JSON and store it in MongoDongo."""
     client = MongoClient()
     db = client[db_name]
     with open(json_path, encoding="utf-8") as data_file:
         data = json.load(data_file)
         print(f"Inserting {len(data)} elements...")
-        db[collection_name].drop()
-        db[collection_name].insert_many(data)
-        print(f"Done, {db[collection_name].count_documents({})} elements in {db_name}")
+        for pdata in data:
+            cases = pdata.pop("Cases")
+            result = db.patients.insert_one(pdata)
+            for c in cases:
+                c["patient_id"] = result.inserted_id
+            db.cases.insert_many(cases)
+        print("Done")
 
 
 def convert_data(input_csv: str, output_json: str) -> None:
