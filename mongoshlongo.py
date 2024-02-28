@@ -3,6 +3,8 @@ import csv
 import json
 
 from pymongo import MongoClient
+import sys
+
 
 SCHEMA: dict[str, tuple[str, ...]] = {
     "Patient": ("Name", "Age", "Gender", "Blood Type"),
@@ -47,6 +49,7 @@ def convert_data(input_csv: str, output_json: str) -> None:
 
 
 if __name__ == "__main__":
+    print(sys.executable)
     parser = argparse.ArgumentParser(description='Shell commands for BigData assignment.')
     subparsers = parser.add_subparsers()
     convert_parser = subparsers.add_parser('convert')
