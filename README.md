@@ -1,3 +1,4 @@
+
 # MongoDongo
 
 Scripts to create, import to, inspect and test a Mongo DB.
@@ -17,6 +18,6 @@ python3 mongoshlongo.py convert healthcare_dataset.csv data.json
 Converts the CSV data into structured JSON data for inserting into the db.
 
 ```bash
-python3 mongoshlongo.py import test_database data.json
+python3 mongoshlongo.py import healthcare_db data.json
 ```
 Imports JSON data into the `test_database` DB.
