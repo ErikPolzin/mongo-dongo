@@ -25,7 +25,7 @@ Then install [pymongo](https://pymongo.readthedocs.io/en/stable/installation.htm
 Use the `mongoshlongo` script, for example:
 
 ```bash
-python3 mongoshlongo.py convert healthcare_dataset.csv data.json
+python3 mongoshlongo.py convert data/healthcare_dataset.csv data.json
 ```
 Converts the CSV data into structured JSON data for inserting into the db.
 
@@ -34,3 +34,11 @@ python3 mongoshlongo.py import healthcare_db data.json
 ```
 Imports JSON data into the `test_database` DB.
 ***
+Imports JSON data into the `healthcare_db` DB.
+
+### Running test cases
+
+Use `mongotest.py` to run the automated tests on a given database, like so:
+```bash
+python3 mongotest.py healthcare_db
+```
