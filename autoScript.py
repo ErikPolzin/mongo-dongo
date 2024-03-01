@@ -1,6 +1,11 @@
 from pymongo import MongoClient
 from datetime import datetime
 
+"""
+    This script automatically runs one query for every teamamte in the team
+"""
+
+
 # Connection to MongoDB
 client = MongoClient('mongodb://localhost:27017/')
 db = client['healthcare_db'] 
@@ -57,5 +62,9 @@ results = collection.aggregate(result)
 for document in results:
     print(document)
 
-#@TODO Bianca
-    
+
+# Bianca
+print("Find the ealiest addmitted case:")
+first_patient = db.cases.find().sort({"Date of Admission":1}).limit(1)
+for patient in first_patient:
+    print(patient)
