@@ -21,3 +21,10 @@ Converts the CSV data into structured JSON data for inserting into the db.
 python3 mongoshlongo.py import healthcare_db data.json
 ```
 Imports JSON data into the `test_database` DB.
+
+### Running test cases
+
+Use `mongotest.py` to run the automated tests on a given database, like so:
+```bash
+python3 mongotest.py test_database
+```
