@@ -13,7 +13,7 @@ Then install [pymongo](https://pymongo.readthedocs.io/en/stable/installation.htm
 Use the `mongoshlongo` script, for example:
 
 ```bash
-python3 mongoshlongo.py convert healthcare_dataset.csv data.json
+python3 mongoshlongo.py convert data/healthcare_dataset.csv data.json
 ```
 Converts the CSV data into structured JSON data for inserting into the db.
 

@@ -15,7 +15,7 @@ SCHEMA: dict[str, tuple[str, ...]] = {
         "Discharge Date", "Medication", "Test Results"),
     "Billing": ("Insurance Provider", "Billing Amount")
 }
-with open("validators.json", encoding="utf-8") as vals_file:
+with open("data/validators.json", encoding="utf-8") as vals_file:
     VALIDATORS = json.load(vals_file)
 
 
