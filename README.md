@@ -9,11 +9,11 @@ By Erik, Richard, Bianca, Ryan and Stuart (aka Data?IBarelyKnowHer :smile:)
 
 ## File Structure
 
- - **healthcare_dataset.csv:** original dataset
  - **mongoshlongo.py:** Code to convert dataset into a MongoDB dataset
- - **autoScript.py:** Runs one query for each team member
- - **validators.json:** Some database strucutre rules
- - **CSC4013Z_Assignment1.pdf:** Report containing all assignment questions
+ - **mongotest.py:** Runs automated test cases
+ - **data/validators.json:** Some database strucutre rules
+ - **data/healthcare_dataset.csv:** original dataset
+ - **CSC4013Z_Assignment1.pdf:** Report 
 
 ## Installation
 
